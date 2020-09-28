@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -34,12 +35,15 @@ public class AnalisadorLexico {
         palavrasReservadas.add("while");
         palavrasReservadas.add("do");
         palavrasReservadas.add("not");
-        //palavrasReservadas.add("for");
-        //palavrasReservadas.add("to");
+        palavrasReservadas.add("for");
+        palavrasReservadas.add("to");
 
-        File file = new File("C:\\Users\\arnor\\Documents\\NetBeansProjects\\AnalisadorLexico\\benchmark-arquivos_testes\\Test5.pas");
+        File file = new File("benchmark-arquivos_testes\\Test5.pas");
         int numLinha = 0;
+
         BufferedReader in = new BufferedReader(new FileReader(file));
+        File saida = new File("saida.txt");
+        saida.createNewFile();
 
         while (in.ready() && !erroInvalido) {
             //loop do programa inteiro
@@ -96,7 +100,6 @@ public class AnalisadorLexico {
                         lexema += linha.charAt(i);
                         i++;
 
-                        //if(Character.isDigit(linha.charAt(i++)))
                         if (i == linha.length()) {
                             break;
                         }
@@ -176,7 +179,7 @@ public class AnalisadorLexico {
                 } else if (linha.charAt(i) == '{') {
                     erroComentario = true;
                 } else {
-                    msgErro = "Foi encontrado um caracter inválido no código (" + linha.charAt(i) + "), na linha " + numLinha + ".";
+                    msgErro = "Erro encontrado: Caracter inválido '" + linha.charAt(i) + "', na linha " + numLinha + ".";
                     erroInvalido = true; //dispara o booleano de erro para caracter inválido
                     break; //termina o loop da linha
                 }
@@ -185,14 +188,20 @@ public class AnalisadorLexico {
 
         }
         //System.out.println("erro: " + erro);
+        FileWriter fw = new FileWriter("saida.txt");
+        
+        fw.write(String.format("%-12s| %-23s | %-3s \n", "Token", "Tipo", "Linha"));
+        fw.write(String.format("----------------------------------------------\n", "Token", "Tipo", "Linha"));
+        
         for (Token t : tokens) {
-            System.out.println(t.lexema + " | " + t.tipo + " | " + t.linha);
+            fw.write(String.format("%-12s| %-23s | %-3d \n", t.lexema, t.tipo, t.linha));
         }
         if (erroInvalido) {
-            System.out.println(msgErro);
+            fw.write(msgErro + "\n");
         }
         if (erroComentario) {
-            System.out.println("houve erro em comentario");
+            fw.write("Erro encontrado: Comentário não fechado. \n");
         }
+        fw.close();
     }
 }

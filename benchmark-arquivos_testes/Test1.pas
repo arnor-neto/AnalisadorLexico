@@ -1,6 +1,6 @@
 program Test_1;
    var
-      Area, Comprimento, Raio : real; 
+      A@rea, Comprimento, Raio : real; 
   begin {essa linha deve gerar um erro devido ao caracter não conhecido}
       Raio := 4;
       Area := 3.14 * Raio * Raio;
@@ -8,4 +8,4 @@ program Test_1;
 end.
 
 {testar multiplos espacos também{gere erros sintáticos, como retirar uma atribuição
-{veja o que a especificação diz em relação ao uso de ";" no último comando. Eh necessário?}{
+{veja o que a especificação diz em relação ao uso de ";" no último comando. Eh necessário?}
