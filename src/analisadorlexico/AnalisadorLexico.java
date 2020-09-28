@@ -20,6 +20,7 @@ public class AnalisadorLexico {
 
         boolean erroComentario = false;
 
+        //Conjunto de palavras reservadas
         ArrayList palavrasReservadas = new ArrayList<String>();
         palavrasReservadas.add("program");
         palavrasReservadas.add("var");
@@ -38,10 +39,12 @@ public class AnalisadorLexico {
         palavrasReservadas.add("for");
         palavrasReservadas.add("to");
 
-        File file = new File("benchmark-arquivos_testes\\Test5.pas");
+        File file = new File("benchmark-arquivos_testes\\Test1.pas");
+        
         int numLinha = 0;
 
         BufferedReader in = new BufferedReader(new FileReader(file));
+        
         File saida = new File("saida.txt");
         saida.createNewFile();
 
@@ -59,6 +62,8 @@ public class AnalisadorLexico {
                         erroComentario = false;
                     }
 
+                } else if (linha.charAt(i) == '{') {
+                    erroComentario = true;
                 } else if (Character.isLetter(linha.charAt(i))) {
                     String lexema = "";
                     while (Character.isLetter(linha.charAt(i)) || Character.isDigit(linha.charAt(i)) || linha.charAt(i) == '_') {
@@ -124,6 +129,7 @@ public class AnalisadorLexico {
                     String lexema = "";
                     lexema += linha.charAt(i);
                     tokens.add(new Token(lexema, "Delimitador", numLinha));
+                    
                 } else if (linha.charAt(i) == ':') {
 
                     String lexema = "";
@@ -136,10 +142,12 @@ public class AnalisadorLexico {
                     } else {
                         tokens.add(new Token(lexema, "Delimitador", numLinha));
                     }
+                    
                 } else if (linha.charAt(i) == '=') {
                     String lexema = "";
                     lexema += linha.charAt(i);
                     tokens.add(new Token(lexema, "Operador Relacional", numLinha));
+                    
                 } else if (linha.charAt(i) == '<') {
                     String lexema = "";
                     lexema += linha.charAt(i);
@@ -155,6 +163,7 @@ public class AnalisadorLexico {
                     } else {
                         tokens.add(new Token(lexema, "Operador Relacional", numLinha));
                     }
+                    
                 } else if (linha.charAt(i) == '>') {
                     String lexema = "";
                     lexema += linha.charAt(i);
@@ -166,32 +175,31 @@ public class AnalisadorLexico {
                     } else {
                         tokens.add(new Token(lexema, "Operador Relacional", numLinha));
                     }
+                    
                 } else if (linha.charAt(i) == '+' || linha.charAt(i) == '-') {
                     String lexema = "";
                     lexema += linha.charAt(i);
                     tokens.add(new Token(lexema, "Operador Aditivo", numLinha));
+                    
                 } else if (linha.charAt(i) == '*' || linha.charAt(i) == '/') {
                     String lexema = "";
                     lexema += linha.charAt(i);
                     tokens.add(new Token(lexema, "Operador Multiplicativo", numLinha));
+                    
                 } else if (linha.charAt(i) == ' ' || linha.charAt(i) == '\n' || linha.charAt(i) == '\t') {
                     //caracter ignorável: Não faz nada
-                } else if (linha.charAt(i) == '{') {
-                    erroComentario = true;
                 } else {
                     msgErro = "Erro encontrado: Caracter inválido '" + linha.charAt(i) + "', na linha " + numLinha + ".";
                     erroInvalido = true; //dispara o booleano de erro para caracter inválido
                     break; //termina o loop da linha
                 }
-
             }
-
         }
-        //System.out.println("erro: " + erro);
+
         FileWriter fw = new FileWriter("saida.txt");
         
         fw.write(String.format("%-12s| %-23s | %-3s \n", "Token", "Tipo", "Linha"));
-        fw.write(String.format("----------------------------------------------\n", "Token", "Tipo", "Linha"));
+        fw.write(String.format("----------------------------------------------\n"));
         
         for (Token t : tokens) {
             fw.write(String.format("%-12s| %-23s | %-3d \n", t.lexema, t.tipo, t.linha));

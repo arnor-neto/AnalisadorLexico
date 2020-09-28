@@ -1,45 +1,15 @@
 Token       | Tipo                    | Linha 
 ----------------------------------------------
 program     | Palavra Reservada       | 1   
-Test5       | Identificador           | 1   
+Test1       | Identificador           | 1   
 ;           | Delimitador             | 1   
 var         | Palavra Reservada       | 2   
-A           | Identificador           | 3   
+Area        | Identificador           | 3   
 ,           | Delimitador             | 3   
-B           | Identificador           | 3   
+Comprimento | Identificador           | 3   
 ,           | Delimitador             | 3   
-R           | Identificador           | 3   
-,           | Delimitador             | 3   
-I           | Identificador           | 3   
+Raio        | Identificador           | 3   
 :           | Delimitador             | 3   
-integer     | Palavra Reservada       | 3   
+real        | Palavra Reservada       | 3   
 ;           | Delimitador             | 3   
-begin       | Palavra Reservada       | 4   
-for         | Palavra Reservada       | 5   
-I           | Identificador           | 5   
-:=          | Operador de Atribuição  | 5   
-1           | Número Inteiro          | 5   
-to          | Palavra Reservada       | 5   
-5           | Número Inteiro          | 5   
-do          | Palavra Reservada       | 5   
-begin       | Palavra Reservada       | 6   
-A           | Identificador           | 7   
-:=          | Operador de Atribuição  | 7   
-A           | Identificador           | 7   
-*           | Operador Multiplicativo | 7   
-A           | Identificador           | 7   
-;           | Delimitador             | 7   
-B           | Identificador           | 8   
-:=          | Operador de Atribuição  | 8   
-B           | Identificador           | 8   
-*           | Operador Multiplicativo | 8   
-A           | Identificador           | 8   
-;           | Delimitador             | 8   
-R           | Identificador           | 9   
-:=          | Operador de Atribuição  | 9   
-A           | Identificador           | 9   
-+           | Operador Aditivo        | 9   
-B           | Identificador           | 9   
-end         | Palavra Reservada       | 10  
-end         | Palavra Reservada       | 11  
-.           | Delimitador             | 11  
+Erro encontrado: Caracter inválido '&', na linha 4.
