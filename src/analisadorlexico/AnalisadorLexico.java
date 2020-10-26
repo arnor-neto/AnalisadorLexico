@@ -11,14 +11,17 @@ import java.util.ArrayList;
 public class AnalisadorLexico {
 
     public static ArrayList<Token> tokens;
+    public boolean erroInvalido;
+    public boolean erroComentario;
+    
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public ArrayList executar(String path) throws FileNotFoundException, IOException {
 
         tokens = new ArrayList<>();
-        boolean erroInvalido = false;
+        erroInvalido = false;
         String msgErro = "";
 
-        boolean erroComentario = false;
+        erroComentario = false;
 
         //Conjunto de palavras reservadas
         ArrayList palavrasReservadas = new ArrayList<String>();
@@ -39,7 +42,7 @@ public class AnalisadorLexico {
         palavrasReservadas.add("for");
         palavrasReservadas.add("to");
 
-        File file = new File("benchmark-arquivos_testes\\Test1.pas");
+        File file = new File(path);
         
         int numLinha = 0;
 
@@ -206,10 +209,14 @@ public class AnalisadorLexico {
         }
         if (erroInvalido) {
             fw.write(msgErro + "\n");
+            System.out.print(msgErro + "\n");
         }
         if (erroComentario) {
             fw.write("Erro encontrado: Comentário não fechado. \n");
+            System.out.print("Erro encontrado: Comentário não fechado. \n");
         }
         fw.close();
+        
+        return tokens;
     }
 }
